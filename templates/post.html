@@ -1,4 +1,4 @@
-<!-- templates/post.html.j2 -->
+<!-- templates/post.html -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,5 +10,16 @@
     <article>
         {{ content|safe }}
     </article>
+
+    <!-- Updated navigation section -->
+    <div class="post-navigation">
+        {% if let Some(previous_post) = previous_post %}
+            <a href="/{{ previous_post.slug }}.html">&laquo; {{ previous_post.title }}</a>
+        {% endif %}
+        
+        {% if let Some(next_post) = next_post %}
+            <a href="/{{ next_post.slug }}.html">{{ next_post.title }} &raquo;</a>
+        {% endif %}
+    </div>
 </body>
 </html>
