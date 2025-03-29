@@ -7,12 +7,21 @@ use std::{
     io::Write,
     path::Path,
 };
+use std::collections::HashMap;
 
 #[derive(Debug, Deserialize)]
 struct Frontmatter {
     title: String,
     date: String,
     slug: String,
+    #[serde(default)]
+    draft: bool,
+    #[serde(default)]
+    summary: String,  // Not optional - empty string by default
+    #[serde(default)]
+    tags: Vec<String>,
+    #[serde(default)]
+    category: String,
 }
 
 #[derive(Debug)]
@@ -35,6 +44,15 @@ struct IndexTemplate<'a> {
     posts: &'a [Post],
 }
 
+#[derive(Template)]
+#[template(path = "tags.html")]
+struct TagTemplate<'a> {
+    tag: &'a str,
+    posts: &'a [&'a Post],
+}
+
+
+
 fn main() -> Result<()> {
     let posts_dir = "posts";
     let output_dir = "dist";
@@ -49,8 +67,12 @@ fn main() -> Result<()> {
         if path.extension().and_then(|s| s.to_str()) == Some("md") {
             let content = fs::read_to_string(&path)?;
             let post = parse_markdown(&content)?;
-            render_post(&post, output_dir)?;
-            posts.push(post);
+    
+            // Skip draft posts
+            if !post.frontmatter.draft {
+                render_post(&post, output_dir)?;
+                posts.push(post);
+            }
         }
     }
 
@@ -105,5 +127,37 @@ fn render_index(posts: &[Post], output_dir: &str) -> Result<()> {
     
     let mut file = File::create(output_path)?;
     file.write_all(template.render()?.as_bytes())?;
+    Ok(())
+}
+
+fn render_tags(posts: &[Post], output_dir: &str) -> Result<()> {
+    use std::collections::HashMap;
+
+    let mut tags: HashMap<&str, Vec<&Post>> = HashMap::new();
+
+    // Group posts by tags
+    for post in posts {
+        for tag in &post.frontmatter.tags {
+            tags.entry(tag.as_str())
+                .or_insert_with(Vec::new)
+                .push(post);
+        }
+    }
+
+    // Create output directory for tags
+    let tags_dir = Path::new(output_dir).join("tags");
+    fs::create_dir_all(&tags_dir)?;
+
+    // Render each tag page
+    for (tag, posts) in tags {
+        let template = TagTemplate {
+            tag,
+            posts: &posts,
+        };
+
+        let output_path = tags_dir.join(format!("{}.html", tag));
+        fs::write(output_path, template.render()?)?;
+    }
+
     Ok(())
 }

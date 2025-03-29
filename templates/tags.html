@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Posts tagged "{{ tag }}"</h1>
+    <ul>
+    {% for post in posts %}
+        <li><a href="{{ post.frontmatter.slug }}.html">{{ post.frontmatter.title }}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

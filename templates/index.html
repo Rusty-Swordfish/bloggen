@@ -1,9 +1,5 @@
-<!-- templates/index.html.j2 -->
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Blog Index</title>
-</head>
 <body>
     <h1>Blog Posts</h1>
     <ul>
@@ -12,6 +8,12 @@
             <a href="{{ post.frontmatter.slug }}.html">
                 {{ post.frontmatter.title }} - {{ post.frontmatter.date }}
             </a>
+            {% if post.frontmatter.summary.len() > 0 %}
+                <p>{{ post.frontmatter.summary }}</p>
+            {% endif %}
+            {% if !post.frontmatter.tags.is_empty() %}
+                <div>Tags: {{ post.frontmatter.tags|join(", ") }}</div>
+            {% endif %}
         </li>
     {% endfor %}
     </ul>
