@@ -1,0 +1,19 @@
+<!-- templates/index.html.j2 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog Index</title>
+</head>
+<body>
+    <h1>Blog Posts</h1>
+    <ul>
+    {% for post in posts %}
+        <li>
+            <a href="{{ post.frontmatter.slug }}.html">
+                {{ post.frontmatter.title }} - {{ post.frontmatter.date }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
