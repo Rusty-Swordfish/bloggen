@@ -1,7 +1,7 @@
 use anyhow::Result;
 use pulldown_cmark::{Options, Parser, html::push_html};
 use serde_yaml;
-use chrono::{DateTime, Utc, TimeZone};
+use chrono::{DateTime, Utc};
 use crate::models::{Frontmatter, Post};
 
 pub fn parse_markdown(content: &str) -> Result<Post> {
