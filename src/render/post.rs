@@ -28,6 +28,7 @@ pub fn render_post(post: &Post, all_posts: &[Post], output_dir: &str) -> Result<
         title: &post.frontmatter.title,
         date: &post.frontmatter.date,
         content: &post.content,
+        frontmatter: &post.frontmatter,
         previous_post,
         next_post,
     };
@@ -40,4 +41,3 @@ pub fn render_post(post: &Post, all_posts: &[Post], output_dir: &str) -> Result<
     file.write_all(template.render()?.as_bytes())?;
     Ok(())
 }
-

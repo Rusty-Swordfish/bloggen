@@ -13,7 +13,7 @@ mod render {
 
 use anyhow::Result;
 use std::fs;
-use parser::post::parse_markdown;
+use parser::post::parse_markdown_post;
 use parser::page::parse_page;
 use render::{post, page, index, tags, rss, sitemap};
 
@@ -31,7 +31,7 @@ fn main() -> Result<()> {
         let path = entry?.path();
         if path.extension().and_then(|s| s.to_str()) == Some("md") {
             let content = fs::read_to_string(&path)?;
-            let post = parse_markdown(&content)?;
+            let post = parse_markdown_post(&content)?;
 
             if !post.frontmatter.draft {
                 posts.push(post);

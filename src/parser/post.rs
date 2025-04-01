@@ -4,7 +4,7 @@ use serde_yaml;
 use chrono::{DateTime, Utc};
 use crate::models::{Frontmatter, Post};
 
-pub fn parse_markdown(content: &str) -> Result<Post> {
+pub fn parse_markdown_post(content: &str) -> Result<Post> {
     let parts: Vec<&str> = content.splitn(3, "---").collect();
     if parts.len() < 3 {
         anyhow::bail!("Invalid frontmatter format");

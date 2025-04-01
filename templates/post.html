@@ -5,9 +5,16 @@
 {% block content %}
     <h1>{{ title }}</h1>
     <p class="date">{{ date }}</p>
+    {% if frontmatter.category != "" %}
+        <div class="category">Category: {{ frontmatter.category }}</div>
+    {% endif %}
     <article>
         {{ content|safe }}
     </article>
+
+    {% if frontmatter.tags.len() > 0 %}
+        <div>Tags: {{ frontmatter.tags|join(", ") }}</div>
+    {% endif %}
 
     <div class="post-navigation">
         {% if let Some(previous_post) = previous_post %}

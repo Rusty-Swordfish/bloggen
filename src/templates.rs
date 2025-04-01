@@ -1,5 +1,5 @@
 use askama::Template;
-use crate::models::{NavigationLink, Post, SitemapUrl, Page};
+use crate::models::{Frontmatter, NavigationLink, Page, Post, SitemapUrl};
 use crate::filters;
 
 #[derive(Template)]
@@ -8,6 +8,7 @@ pub(crate) struct PostTemplate<'a> {
     pub title: &'a str,
     pub date: &'a str,
     pub content: &'a str,
+    pub frontmatter: &'a Frontmatter,
     pub previous_post: Option<NavigationLink<'a>>,
     pub next_post: Option<NavigationLink<'a>>,
 }
