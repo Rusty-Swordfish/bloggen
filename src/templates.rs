@@ -1,9 +1,10 @@
 use askama::Template;
-use crate::models::{NavigationLink, Post, SitemapUrl};
+use crate::models::{NavigationLink, Post, SitemapUrl, Page};
+use crate::filters;
 
 #[derive(Template)]
 #[template(path = "post.html")]
-pub(crate) struct PostTemplate<'a> {  // Needs pub(crate) if used in render/post.rs
+pub(crate) struct PostTemplate<'a> {
     pub title: &'a str,
     pub date: &'a str,
     pub content: &'a str,
@@ -13,25 +14,45 @@ pub(crate) struct PostTemplate<'a> {  // Needs pub(crate) if used in render/post
 
 #[derive(Template)]
 #[template(path = "index.html")]
-pub(crate) struct IndexTemplate<'a> {  // Add pub(crate) if used in render/index.rs
+pub(crate) struct IndexTemplate<'a> {
     pub posts: &'a [Post],
 }
 
 #[derive(Template)]
 #[template(path = "tags.html")]
-pub(crate) struct TagTemplate<'a> {    // Add pub(crate) if used in render/tags.rs
+pub(crate) struct TagTemplate<'a> {
     pub tag: &'a str,
     pub posts: &'a [&'a Post],
 }
 
 #[derive(Template)]
 #[template(path = "rss.xml", escape = "none")]
-pub(crate) struct RssTemplate<'a> {    // Add pub(crate) if used in render/rss.rs
+pub(crate) struct RssTemplate<'a> {
     pub posts: &'a [&'a Post],
 }
 
 #[derive(Template)]
 #[template(path = "sitemap.xml")]
-pub(crate) struct SitemapTemplate {    // Add pub(crate) if used in render/sitemap.rs
+pub(crate) struct SitemapTemplate {
     pub urls: Vec<SitemapUrl>,
+}
+
+// Default template
+#[derive(Template)]
+#[template(path = "page.html")]
+pub struct DefaultPageTemplate<'a> {
+    pub page: &'a Page,
+}
+
+// Add more templates as needed
+#[derive(Template)]
+#[template(path = "contact.html")]
+pub struct ContactPageTemplate<'a> {
+    pub page: &'a Page,
+}
+
+#[derive(Template)]
+#[template(path = "about.html")]
+pub struct AboutPageTemplate<'a> {
+    pub page: &'a Page,
 }

@@ -7,9 +7,7 @@ use askama::Template;
 use crate::models::{Post, SitemapUrl};
 use crate::templates::SitemapTemplate;
 
-
-pub fn render_sitemap(posts: &[Post], output_dir: &str) -> Result<()> {
-    let base_url = "https://example.com/"; // Replace with your actual domain
+pub fn render_sitemap(posts: &[Post], output_dir: &str, base_url: &str) -> Result<()> {
     let mut urls = Vec::new();
 
     // Add homepage
@@ -41,7 +39,7 @@ pub fn render_sitemap(posts: &[Post], output_dir: &str) -> Result<()> {
     for tag in tags.keys() {
         urls.push(SitemapUrl {
             loc: format!("{}tags/{}.html", base_url, tag),
-            lastmod: homepage_lastmod.to_rfc3339(), // You can use a different date if needed
+            lastmod: homepage_lastmod.to_rfc3339(),
         });
     }
 
@@ -58,7 +56,7 @@ pub fn render_sitemap(posts: &[Post], output_dir: &str) -> Result<()> {
     for category in categories.keys() {
         urls.push(SitemapUrl {
             loc: format!("{}categories/{}.html", base_url, category),
-            lastmod: homepage_lastmod.to_rfc3339(), // You can use a different date if needed
+            lastmod: homepage_lastmod.to_rfc3339(),
         });
     }
 

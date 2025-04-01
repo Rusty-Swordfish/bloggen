@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+</head>
+<body>
+    <h1>{{ page.title }}</h1>
+    <div>
+        {{ page.content|safe }}
+    </div>
+    {% if page.custom_data.is_some() %}
+    <div class="custom-data">
+        <pre>{{ page.custom_data.as_ref().unwrap()|json_encode|safe }}</pre>
+    </div>
+    {% endif %}
+</body>
+</html>

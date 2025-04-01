@@ -1,18 +1,22 @@
 mod models;
 mod parser;
 mod templates;
+mod filters;
 mod render {
     pub mod post;
     pub mod index;
     pub mod tags;
     pub mod rss;
     pub mod sitemap;
+    pub mod page;
 }
+
 
 use anyhow::Result;
 use std::fs;
-use parser::parse_markdown;
-use render::{post, index, tags, rss, sitemap};
+use parser::post::parse_markdown;
+use parser::page::parse_page;
+use render::{post, page, index, tags, rss, sitemap};
 
 fn main() -> Result<()> {
     let posts_dir = "posts";
@@ -44,6 +48,24 @@ fn main() -> Result<()> {
         post::render_post(post, &posts, output_dir)?;
     }
 
+    let pages_dir = "pages";
+    let mut pages = Vec::new();
+
+    // Process all page files
+    for entry in fs::read_dir(pages_dir)? {
+        let path = entry?.path();
+        println!("{:?}", path);
+        if path.is_file() {
+            let page = parse_page(&path)?;
+            pages.push(page);
+        }
+    }
+
+    // Render pages
+    for page in &pages {
+        page::render_page(page, output_dir)?;
+    }
+
     // Generate index
     index::render_index(&posts, output_dir)?;
 
@@ -54,7 +76,7 @@ fn main() -> Result<()> {
     rss::render_rss(&posts, output_dir)?;
 
     // Generate sitemap
-    sitemap::render_sitemap(&posts, output_dir)?;
+    sitemap::render_sitemap(&posts, output_dir, "https://yourdomain.com/")?;
 
     Ok(())
 }

@@ -1,10 +1,10 @@
 use anyhow::Result;
 use std::fs::File;
-use std::io::Write;          // Needed for the `write_all` method
-use std::path::Path;         // Needed for filesystem path handling
-use askama::Template;        // Needed for the `render` method
-use crate::models::Post;     // Needed for the `Post` struct
-use crate::templates::IndexTemplate; // Needed for the `IndexTemplate` struct
+use std::io::Write;
+use std::path::Path;
+use askama::Template;
+use crate::models::Post;
+use crate::templates::IndexTemplate;
 
 pub fn render_index(posts: &[Post], output_dir: &str) -> Result<()> {
     let template = IndexTemplate { posts };

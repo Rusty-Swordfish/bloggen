@@ -1,4 +1,3 @@
-<!-- templates/post.html -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +10,6 @@
         {{ content|safe }}
     </article>
 
-    <!-- Updated navigation section -->
     <div class="post-navigation">
         {% if let Some(previous_post) = previous_post %}
             <a href="/{{ previous_post.slug }}.html">&laquo; {{ previous_post.title }}</a>

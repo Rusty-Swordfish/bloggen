@@ -1,5 +1,5 @@
-use chrono::{DateTime, Utc}; // Used for DateTime and Utc timezone in the `Post` struct
-use serde::Deserialize;      // For deserializing the Frontmatter struct from YAML
+use chrono::{DateTime, Utc};
+use serde::Deserialize;
 
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct Frontmatter {
@@ -32,4 +32,14 @@ pub struct NavigationLink<'a> {
 pub struct SitemapUrl {
     pub loc: String,
     pub lastmod: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Page {
+    pub title: String,
+    pub slug: String,
+    pub content: String,
+    pub template: String,
+    #[serde(default)]
+    pub custom_data: Option<serde_json::Value>,
 }

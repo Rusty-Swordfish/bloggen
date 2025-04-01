@@ -19,7 +19,6 @@ pub fn parse_markdown(content: &str) -> Result<Post> {
     push_html(&mut html, parser);
 
     // Convert date string to DateTime
-    // Replace deprecated method
     let pub_date = DateTime::parse_from_str(
         &format!("{} 00:00:00 +0000", frontmatter.date),
         "%Y-%m-%d %H:%M:%S %z"

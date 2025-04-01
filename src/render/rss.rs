@@ -1,9 +1,9 @@
 use anyhow::Result;
 use std::fs;
-use std::path::Path;         // Needed for filesystem path handling
-use askama::Template;        // Needed for the `render` method
-use crate::models::Post;     // Needed for the `Post` struct
-use crate::templates::RssTemplate; // Needed for the `IndexTemplate` struct
+use std::path::Path;
+use askama::Template;
+use crate::models::Post;
+use crate::templates::RssTemplate;
 
 pub fn render_rss(posts: &[Post], output_dir: &str) -> Result<()> {
     let posts_refs: Vec<&Post> = posts.iter().collect();

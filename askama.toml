@@ -1,0 +1,8 @@
+[general]
+# Location of templates
+dir = "templates"
+# Syntax highlighting, not needed for this project
+syntax_highlight = false
+
+[filters]
+json_encode = "crate::filters::json_encode"
