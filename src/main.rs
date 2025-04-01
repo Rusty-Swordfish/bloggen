@@ -17,6 +17,13 @@ use std::fs;
 use parser::post::parse_markdown_post;
 use parser::page::parse_page;
 use render::{post, page, index, tags, categories, rss, sitemap};
+use std::io;
+
+fn copy_file(source: &str, destination: &str) -> io::Result<()> {
+    fs::copy(source, destination)?;
+    println!("File copied from {} to {}", source, destination);
+    Ok(())
+}
 
 fn main() -> Result<()> {
     let posts_dir = "posts";
@@ -80,7 +87,9 @@ fn main() -> Result<()> {
 
     // Generate sitemap
     sitemap::render_sitemap(&posts, &pages, output_dir, "https://yourdomain.com/")?;
-
+    let source_path = "assets/favicon.ico";
+    let destination_path = "dist/favicon.ico";
+    copy_file(source_path, destination_path)?;
 
     Ok(())
 }
