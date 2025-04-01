@@ -4,10 +4,10 @@ use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
 use askama::Template;
-use crate::models::{Post, SitemapUrl};
+use crate::models::{Page, Post, SitemapUrl};
 use crate::templates::SitemapTemplate;
 
-pub fn render_sitemap(posts: &[Post], output_dir: &str, base_url: &str) -> Result<()> {
+pub fn render_sitemap(posts: &[Post], pages: &[Page], output_dir: &str, base_url: &str) -> Result<()> {
     let mut urls = Vec::new();
 
     // Add homepage
@@ -26,6 +26,14 @@ pub fn render_sitemap(posts: &[Post], output_dir: &str, base_url: &str) -> Resul
         urls.push(SitemapUrl {
             loc: format!("{}posts/{}.html", base_url, post.frontmatter.slug),
             lastmod: post.pub_date.to_rfc3339(),
+        });
+    }
+
+    // Add pages
+    for page in pages {
+        urls.push(SitemapUrl {
+            loc: format!("{}{}.html", base_url, page.slug),
+            lastmod: homepage_lastmod.to_rfc3339(), // Using latest post date as page lastmod
         });
     }
 

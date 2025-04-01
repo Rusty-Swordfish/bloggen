@@ -57,3 +57,10 @@ pub struct ContactPageTemplate<'a> {
 pub struct AboutPageTemplate<'a> {
     pub page: &'a Page,
 }
+
+#[derive(Template)]
+#[template(path = "category.html")]
+pub struct CategoryTemplate<'a> {
+    pub category: &'a str,
+    pub posts: &'a [&'a Post],
+}

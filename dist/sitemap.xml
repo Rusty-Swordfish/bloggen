@@ -12,12 +12,27 @@
   </url>
   
   <url>
-    <loc>https://yourdomain.com/tags/Programming.html</loc>
+    <loc>https://yourdomain.com/contact.html</loc>
+    <lastmod>2025-03-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://yourdomain.com/example-json.html</loc>
+    <lastmod>2025-03-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://yourdomain.com/about.html</loc>
     <lastmod>2025-03-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://yourdomain.com/tags/Rust.html</loc>
+    <lastmod>2025-03-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://yourdomain.com/tags/Programming.html</loc>
     <lastmod>2025-03-30T00:00:00+00:00</lastmod>
   </url>
   

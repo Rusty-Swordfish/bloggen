@@ -6,6 +6,7 @@ mod render {
     pub mod post;
     pub mod index;
     pub mod tags;
+    pub mod categories;
     pub mod rss;
     pub mod sitemap;
     pub mod page;
@@ -15,7 +16,7 @@ use anyhow::Result;
 use std::fs;
 use parser::post::parse_markdown_post;
 use parser::page::parse_page;
-use render::{post, page, index, tags, rss, sitemap};
+use render::{post, page, index, tags, categories, rss, sitemap};
 
 fn main() -> Result<()> {
     let posts_dir = "posts";
@@ -53,7 +54,7 @@ fn main() -> Result<()> {
     // Process all page files
     for entry in fs::read_dir(pages_dir)? {
         let path = entry?.path();
-        println!("{:?}", path);
+        //println!("{:?}", path);
         if path.is_file() {
             let page = parse_page(&path)?;
             pages.push(page);
@@ -70,12 +71,16 @@ fn main() -> Result<()> {
 
     // Generate tag pages
     tags::render_tags(&posts, output_dir)?;
+    
+    // Generate category pages
+    categories::render_categories(&posts, output_dir)?;
 
     // Generate RSS feed
     rss::render_rss(&posts, output_dir)?;
 
     // Generate sitemap
-    sitemap::render_sitemap(&posts, output_dir, "https://yourdomain.com/")?;
+    sitemap::render_sitemap(&posts, &pages, output_dir, "https://yourdomain.com/")?;
+
 
     Ok(())
 }
