@@ -11,7 +11,6 @@ mod render {
     pub mod page;
 }
 
-
 use anyhow::Result;
 use std::fs;
 use parser::post::parse_markdown;

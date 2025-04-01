@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
     <h1>Blog Posts</h1>
     <ul>
     {% for post in posts %}
@@ -17,5 +17,4 @@
         </li>
     {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

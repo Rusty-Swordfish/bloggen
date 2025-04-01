@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ title }}</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - My Blog{% endblock %}
+
+{% block content %}
     <h1>{{ title }}</h1>
     <p class="date">{{ date }}</p>
     <article>
@@ -19,5 +18,4 @@
             <a href="/{{ next_post.slug }}.html">{{ next_post.title }} &raquo;</a>
         {% endif %}
     </div>
-</body>
-</html>
+{% endblock %}

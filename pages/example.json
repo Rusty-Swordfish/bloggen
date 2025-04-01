@@ -1,0 +1,12 @@
+{
+    "title": "Example JSON Page",
+    "slug": "example-json",
+    "content": "<h2>Welcome to our JSON-powered page!</h2><p>This is an example of a page created using JSON data instead of Markdown.</p>",
+    "template": "default",
+    "custom_data": {
+      "author": "John Doe",
+      "last_updated": "2023-06-15",
+      "tags": ["example", "json", "static-site"]
+    }
+  }
+  

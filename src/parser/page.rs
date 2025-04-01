@@ -51,30 +51,6 @@ fn parse_markdown_page(path: &Path) -> Result<Page> {
     })
 }
 
-
-
-
-// fn parse_markdown_page(path: &Path) -> Result<Page> {
-//     let content = fs::read_to_string(path)?;
-//     let parts: Vec<&str> = content.splitn(3, "---").collect();
-    
-//     if parts.len() < 3 {
-//         return Err(anyhow::anyhow!("Invalid frontmatter format"));
-//     }
-
-//     let frontmatter: Page = serde_yaml::from_str(parts[1])?;
-//     let markdown = parts[2];
-    
-//     let parser = pulldown_cmark::Parser::new_ext(markdown, pulldown_cmark::Options::all());
-//     let mut html = String::new();
-//     pulldown_cmark::html::push_html(&mut html, parser);
-
-//     Ok(Page {
-//         content: html,
-//         ..frontmatter
-//     })
-// }
-
 fn parse_json_page(path: &Path) -> Result<Page> {
     let content = fs::read_to_string(path)?;
     match serde_json::from_str(&content) {
@@ -82,9 +58,3 @@ fn parse_json_page(path: &Path) -> Result<Page> {
         Err(e) => Err(anyhow::anyhow!("Error parsing JSON file {:?}: {}", path, e)),
     }
 }
-
-// fn parse_json_page(path: &Path) -> Result<Page> {
-//     let content = fs::read_to_string(path)?;
-//     let page: Page = serde_json::from_str(&content)?;
-//     Ok(page)
-// }
